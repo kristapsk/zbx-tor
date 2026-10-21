@@ -1,6 +1,6 @@
 # Tor monitoring for Zabbix 7.4
 
-Monitor local C Tor with Zabbix agent2 **active checks**, one loopback HTTP scrape per minute, and native Zabbix Prometheus preprocessing. No Prometheus server, Tor ControlPort access, root execution, curl, or third-party Python modules are required.
+Monitor local C Tor with classic Zabbix agent (`zabbix_agentd`) or Zabbix agent2 **active checks**, one loopback HTTP scrape per minute, and native Zabbix Prometheus preprocessing. No Prometheus server, Tor ControlPort access, root execution, curl, or third-party Python modules are required.
 
 Developed from a Tor **0.4.9.11** metrics sample. Older versions may omit metrics; unsupported/missing series are discarded, never replaced with healthy-looking zeroes. The template does not depend on systemd; the commands below use it only to restart the packaged agent.
 
@@ -19,21 +19,52 @@ Apply the Tor configuration using your normal service manager. Confirm:
 curl -fsS http://127.0.0.1:9035/metrics
 ```
 
-From the unpacked project directory:
+Both agents use the same Python collector, UserParameter and active-check template. Prometheus preprocessing and onion discovery run on the Zabbix server/proxy, so no Agent2 plugin is needed. Use a supported agent release; this does not add compatibility with old Zabbix servers (the template requires Zabbix 7.4).
+
+From the unpacked project directory, first install the shared collector:
 
 ```bash
-sudo install -d -m 0755 /etc/zabbix/scripts /etc/zabbix/zabbix_agent2.d
+sudo install -d -m 0755 /etc/zabbix/scripts
 sudo install -m 0755 scripts/tor_prometheus.py /etc/zabbix/scripts/tor_prometheus.py
-sudo install -m 0644 zabbix_agent2.d/tor.conf /etc/zabbix/zabbix_agent2.d/tor.conf
 sudo -u zabbix /usr/bin/python3 /etc/zabbix/scripts/tor_prometheus.py 9035
+```
+
+Then choose the instructions for your installed agent. Do not install two copies of the UserParameter into the same agent's Include paths.
+
+### Zabbix agent2
+
+```bash
+sudo install -d -m 0755 /etc/zabbix/zabbix_agent2.d
+sudo install -m 0644 zabbix_agent2.d/tor.conf /etc/zabbix/zabbix_agent2.d/tor.conf
 sudo zabbix_agent2 -T
 sudo systemctl restart zabbix-agent2
 zabbix_agent2 -t 'tor.prometheus[9035]'
 ```
 
-Ensure the main agent configuration includes `Include=/etc/zabbix/zabbix_agent2.d/*.conf` and has the correct `ServerActive` and `Hostname` for your Zabbix host. The collector uses a two-second socket timeout; the agent's default three-second check timeout is normally sufficient on loopback. Large installations can set `Timeout=5`.
+Ensure `/etc/zabbix/zabbix_agent2.conf` includes `Include=/etc/zabbix/zabbix_agent2.d/*.conf`.
 
-In **Data collection → Templates**, import `Template_Tor_Agent2.yaml`, then link **Template App Tor by Agent2 active** to the host. Allow a few collection intervals for discovery and rate data.
+### Classic Zabbix agent (zabbix_agentd)
+
+```bash
+sudo install -d -m 0755 /etc/zabbix/zabbix_agentd.d
+sudo install -m 0644 zabbix_agentd.d/tor.conf /etc/zabbix/zabbix_agentd.d/tor.conf
+sudo systemctl restart zabbix-agent
+zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf -t 'tor.prometheus[9035]'
+```
+
+Ensure `/etc/zabbix/zabbix_agentd.conf` includes:
+
+```conf
+Include=/etc/zabbix/zabbix_agentd.d/*.conf
+```
+
+Package-specific include directories, executable paths and service names can differ. For example, some distributions use `/etc/zabbix/zabbix_agentd.conf.d/`; install `tor.conf` into the directory your configuration actually includes. On Void Linux, use its service manager instead of the `systemctl` command and run the collector check as `_zabbix_agent` if that is the configured agent account.
+
+### Shared active-check configuration and import
+
+For either agent, configure the correct `ServerActive` and `Hostname` for your Zabbix host. The collector uses a two-second socket timeout; the agent's default three-second check timeout is normally sufficient on loopback. Large installations can set `Timeout=5`.
+
+In **Data collection → Templates**, import `Template_Tor_Agent2.yaml`, then link **Template App Tor by Zabbix agent active** to the host. Allow a few collection intervals for discovery and rate data. The YAML filename and internal template identifier retain their original Agent2 naming for update compatibility; both agent implementations use this same template. Existing imports can be updated using the same UUIDs.
 
 ## Macros
 
@@ -78,7 +109,7 @@ A scrape has a 4 MiB limit and uses no proxy or HTTP redirects. There is no auth
 
 Metrics indicate local Tor state, **not end-to-end reachability**. They do not prove that SOCKS can reach the network, that an onion descriptor is published, or that the backend application responds. Add a separate external onion/SOCKS probe for those guarantees.
 
-Tests cover successful and failed collection, malformed/oversize responses, redirect rejection, metadata normalization, socket separation and template selectors against an anonymized Tor 0.4.9.11 fixture. JavaScript preprocessing is exercised with Node. YAML, UUIDs and references are checked locally. An actual Zabbix server import and live trigger execution have **not** been tested in this environment.
+Tests cover successful and failed collection, malformed/oversize responses, redirect rejection, metadata normalization, socket separation and template selectors against an anonymized Tor 0.4.9.11 fixture. JavaScript preprocessing is exercised with Node. YAML, UUIDs and references are checked locally. An actual Zabbix server import, execution by installed agent binaries, and live trigger execution have **not** been tested in this environment. Both agent configurations invoke exactly the same tested collector.
 
 Run:
 
@@ -95,3 +126,5 @@ References:
 - https://www.zabbix.com/documentation/7.4/en/manual/config/items/itemtypes/http/prometheus
 - https://www.zabbix.com/documentation/7.4/en/manual/discovery/low_level_discovery/examples/prometheus
 - Architecture reference: https://github.com/kristapsk/zbx-openclaw/
+
+Classic agent UserParameter reference: https://www.zabbix.com/documentation/7.4/en/manual/config/items/userparameters

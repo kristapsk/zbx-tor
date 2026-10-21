@@ -6,10 +6,11 @@ zabbix_export:
   templates:
   - uuid: 821ce4590487471a9ac3fcebbb5159e3
     template: Template App Tor by Agent2 active
-    name: Template App Tor by Agent2 active
-    description: Local C Tor monitoring via Agent2 active checks and native Prometheus
-      preprocessing. Developed against Tor 0.4.9.11. Metrics do not prove end-to-end
-      SOCKS or onion reachability. Relay flag alert is opt-in.
+    name: Template App Tor by Zabbix agent active
+    description: Local C Tor monitoring via classic Zabbix agent or Agent2 active
+      checks and native Prometheus preprocessing. Developed against Tor 0.4.9.11.
+      Metrics do not prove end-to-end SOCKS or onion reachability. Relay flag alert
+      is opt-in.
     groups:
     - name: Templates/Applications
     items:
