@@ -1,0 +1,497 @@
+# HELP tor_bug_reached_count Total number of BUG() and similar assertion reached
+# TYPE tor_bug_reached_count counter
+tor_bug_reached_count 0
+# HELP tor_relay_flag Relay flags from consensus
+# TYPE tor_relay_flag gauge
+tor_relay_flag{type="Fast"} 0
+tor_relay_flag{type="Exit"} 0
+tor_relay_flag{type="Authority"} 0
+tor_relay_flag{type="Stable"} 0
+tor_relay_flag{type="HSDir"} 0
+tor_relay_flag{type="Running"} 0
+tor_relay_flag{type="V2Dir"} 0
+tor_relay_flag{type="Sybil"} 0
+tor_relay_flag{type="Guard"} 0
+# HELP tor_relay_exit_dns_query_total Total number of DNS queries done by this relay
+# TYPE tor_relay_exit_dns_query_total counter
+tor_relay_exit_dns_query_total 0
+# HELP tor_relay_connections Total number of opened connections
+# TYPE tor_relay_connections gauge
+tor_relay_connections{type="OR listener",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="OR listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="OR listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="OR listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="OR",direction="initiated",state="opened",family="ipv4"} 2
+tor_relay_connections{type="OR",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="OR",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="OR",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Exit",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Exit",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Exit",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Exit",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Socks listener",direction="initiated",state="opened",family="ipv4"} 1
+tor_relay_connections{type="Socks listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Socks listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Socks listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Socks",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Socks",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Socks",direction="received",state="opened",family="ipv4"} 2
+tor_relay_connections{type="Socks",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Directory listener",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Directory listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Directory listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Directory listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Directory",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Directory",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Directory",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Directory",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Control listener",direction="initiated",state="opened",family="ipv4"} 1
+tor_relay_connections{type="Control listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Control listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Control listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Control",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Control",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Control",direction="received",state="opened",family="ipv4"} 1
+tor_relay_connections{type="Control",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Transparent pf/netfilter listener",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Transparent pf/netfilter listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Transparent pf/netfilter listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Transparent pf/netfilter listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Transparent natd listener",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Transparent natd listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Transparent natd listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Transparent natd listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="DNS listener",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="DNS listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="DNS listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="DNS listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Extended OR",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Extended OR",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Extended OR",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Extended OR",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Extended OR listener",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Extended OR listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Extended OR listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Extended OR listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="HTTP tunnel listener",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="HTTP tunnel listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="HTTP tunnel listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="HTTP tunnel listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Metrics listener",direction="initiated",state="opened",family="ipv4"} 1
+tor_relay_connections{type="Metrics listener",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Metrics listener",direction="received",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Metrics listener",direction="received",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Metrics",direction="initiated",state="opened",family="ipv4"} 0
+tor_relay_connections{type="Metrics",direction="initiated",state="opened",family="ipv6"} 0
+tor_relay_connections{type="Metrics",direction="received",state="opened",family="ipv4"} 1
+tor_relay_connections{type="Metrics",direction="received",state="opened",family="ipv6"} 0
+# HELP tor_relay_streams_total Total number of streams
+# TYPE tor_relay_streams_total counter
+tor_relay_streams_total{type="BEGIN"} 0
+tor_relay_streams_total{type="BEGIN_DIR"} 0
+tor_relay_streams_total{type="RESOLVE"} 0
+# HELP tor_relay_load_socket_total Total number of sockets
+# TYPE tor_relay_load_socket_total gauge
+tor_relay_load_socket_total{state="opened"} 10
+tor_relay_load_socket_total 65504
+# HELP tor_relay_dos_total Denial of Service defenses related counters
+# TYPE tor_relay_dos_total counter
+tor_relay_dos_total{type="circuit_rejected"} 0
+tor_relay_dos_total{type="circuit_killed_max_cell"} 0
+tor_relay_dos_total{type="circuit_killed_max_cell_outq"} 0
+tor_relay_dos_total{type="marked_address"} 0
+tor_relay_dos_total{type="marked_address_maxq"} 0
+tor_relay_dos_total{type="conn_rejected"} 0
+tor_relay_dos_total{type="concurrent_conn_rejected"} 0
+tor_relay_dos_total{type="single_hop_refused"} 0
+tor_relay_dos_total{type="introduce2_rejected"} 0
+tor_relay_dos_total{type="stream_rejected"} 0
+# HELP tor_relay_load_tcp_exhaustion_total Total number of times we ran out of TCP ports
+# TYPE tor_relay_load_tcp_exhaustion_total counter
+tor_relay_load_tcp_exhaustion_total 0
+# HELP tor_relay_congestion_control Congestion control related gauges
+# TYPE tor_relay_congestion_control gauge
+tor_relay_congestion_control{state="slow_start_exit",action="cwnd"} 0
+tor_relay_congestion_control{state="slow_start_exit",action="bdp"} 0
+tor_relay_congestion_control{state="slow_start_exit",action="inc"} 0
+tor_relay_congestion_control{state="on_circ_close",action="cwnd"} 0
+tor_relay_congestion_control{state="on_circ_close",action="ss_cwnd"} 0
+tor_relay_congestion_control{state="buffers",action="xon_outbuf"} 0
+tor_relay_congestion_control{state="buffers",action="xoff_outbuf"} 0
+tor_relay_congestion_control{state="cc_backoff",action="chan_blocked_pct"} 0
+tor_relay_congestion_control{state="cc_backoff",action="gamma_drop"} 0
+tor_relay_congestion_control{state="cc_backoff",action="delta_drop"} 0
+tor_relay_congestion_control{state="cc_backoff",action="ss_chan_blocked_pct"} 0
+tor_relay_congestion_control{state="cc_cwnd_update",action="alpha_pct"} 0
+tor_relay_congestion_control{state="cc_cwnd_update",action="beta_pct"} 0
+tor_relay_congestion_control{state="cc_cwnd_update",action="delta_pct"} 0
+tor_relay_congestion_control{state="cc_estimates",action="ss_queue"} 0
+tor_relay_congestion_control{state="cc_estimates",action="queue"} 0
+tor_relay_congestion_control{state="cc_estimates",action="bdp"} 0
+# HELP tor_relay_drop_cell_total Total number of DROP cell we received
+# TYPE tor_relay_drop_cell_total counter
+tor_relay_drop_cell_total 0
+# HELP tor_relay_load_oom_bytes_total Total number of bytes the OOM has freed by subsystem
+# TYPE tor_relay_load_oom_bytes_total counter
+tor_relay_load_oom_bytes_total{subsys="cell"} 0
+tor_relay_load_oom_bytes_total{subsys="dns"} 0
+tor_relay_load_oom_bytes_total{subsys="geoip"} 0
+tor_relay_load_oom_bytes_total{subsys="hsdir"} 0
+# HELP tor_relay_circuits_total Total number of circuits
+# TYPE tor_relay_circuits_total gauge
+tor_relay_circuits_total{state="opened"} 93
+# HELP tor_relay_load_onionskins_total Total number of onionskins handled
+# TYPE tor_relay_load_onionskins_total counter
+tor_relay_load_onionskins_total{type="tap",action="processed"} 0
+tor_relay_load_onionskins_total{type="tap",action="dropped"} 0
+tor_relay_load_onionskins_total{type="fast",action="processed"} 0
+tor_relay_load_onionskins_total{type="fast",action="dropped"} 0
+tor_relay_load_onionskins_total{type="ntor",action="processed"} 0
+tor_relay_load_onionskins_total{type="ntor",action="dropped"} 0
+tor_relay_load_onionskins_total{type="ntor_v3",action="processed"} 0
+tor_relay_load_onionskins_total{type="ntor_v3",action="dropped"} 0
+# HELP tor_relay_connections_total Total number of created/rejected connections
+# TYPE tor_relay_connections_total counter
+tor_relay_connections_total{type="OR listener",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="OR listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="OR listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="OR listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="OR listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="OR listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="OR",direction="initiated",state="created",family="ipv4"} 2
+tor_relay_connections_total{type="OR",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="OR",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="OR",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="OR",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="OR",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Exit",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Exit",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Exit",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Exit",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Exit",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Exit",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Socks listener",direction="initiated",state="created",family="ipv4"} 1
+tor_relay_connections_total{type="Socks listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Socks listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Socks listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Socks listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Socks listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Socks",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Socks",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Socks",direction="received",state="created",family="ipv4"} 2
+tor_relay_connections_total{type="Socks",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Socks",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Socks",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Directory listener",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Directory listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Directory listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Directory listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Directory listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Directory listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Directory",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Directory",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Directory",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Directory",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Directory",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Directory",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Control listener",direction="initiated",state="created",family="ipv4"} 1
+tor_relay_connections_total{type="Control listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Control listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Control listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Control listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Control listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Control",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Control",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Control",direction="received",state="created",family="ipv4"} 1
+tor_relay_connections_total{type="Control",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Control",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Control",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Transparent pf/netfilter listener",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Transparent pf/netfilter listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Transparent pf/netfilter listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Transparent pf/netfilter listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Transparent pf/netfilter listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Transparent pf/netfilter listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Transparent natd listener",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Transparent natd listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Transparent natd listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Transparent natd listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Transparent natd listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Transparent natd listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="DNS listener",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="DNS listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="DNS listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="DNS listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="DNS listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="DNS listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Extended OR",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Extended OR",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Extended OR",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Extended OR",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Extended OR",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Extended OR",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Extended OR listener",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Extended OR listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Extended OR listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Extended OR listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Extended OR listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Extended OR listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="HTTP tunnel listener",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="HTTP tunnel listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="HTTP tunnel listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="HTTP tunnel listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="HTTP tunnel listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="HTTP tunnel listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Metrics listener",direction="initiated",state="created",family="ipv4"} 1
+tor_relay_connections_total{type="Metrics listener",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Metrics listener",direction="received",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Metrics listener",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Metrics listener",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Metrics listener",direction="received",state="rejected",family="ipv6"} 0
+tor_relay_connections_total{type="Metrics",direction="initiated",state="created",family="ipv4"} 0
+tor_relay_connections_total{type="Metrics",direction="initiated",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Metrics",direction="received",state="created",family="ipv4"} 1
+tor_relay_connections_total{type="Metrics",direction="received",state="created",family="ipv6"} 0
+tor_relay_connections_total{type="Metrics",direction="received",state="rejected",family="ipv4"} 0
+tor_relay_connections_total{type="Metrics",direction="received",state="rejected",family="ipv6"} 0
+# HELP tor_relay_est_rend_total Total number of EST_REND cells we received
+# TYPE tor_relay_est_rend_total counter
+tor_relay_est_rend_total{action="success"} 0
+tor_relay_est_rend_total{action="unsuitable_circuit"} 0
+tor_relay_est_rend_total{action="single_hop"} 0
+tor_relay_est_rend_total{action="malformed"} 0
+tor_relay_est_rend_total{action="duplicate_cookie"} 0
+tor_relay_est_rend_total{action="circuit_dead"} 0
+# HELP tor_relay_exit_dns_error_total Total number of DNS errors encountered by this relay
+# TYPE tor_relay_exit_dns_error_total counter
+tor_relay_exit_dns_error_total{reason="success"} 0
+tor_relay_exit_dns_error_total{reason="format"} 0
+tor_relay_exit_dns_error_total{reason="serverfailed"} 0
+tor_relay_exit_dns_error_total{reason="notexist"} 0
+tor_relay_exit_dns_error_total{reason="notimpl"} 0
+tor_relay_exit_dns_error_total{reason="refused"} 0
+tor_relay_exit_dns_error_total{reason="truncated"} 0
+tor_relay_exit_dns_error_total{reason="unknown"} 0
+tor_relay_exit_dns_error_total{reason="tor_timeout"} 0
+tor_relay_exit_dns_error_total{reason="shutdown"} 0
+tor_relay_exit_dns_error_total{reason="cancel"} 0
+tor_relay_exit_dns_error_total{reason="nodata"} 0
+# HELP tor_relay_traffic_bytes Traffic related counters
+# TYPE tor_relay_traffic_bytes counter
+tor_relay_traffic_bytes{direction="read"} 421758
+tor_relay_traffic_bytes{direction="written"} 1025010
+# HELP tor_relay_load_global_rate_limit_reached_total Total number of global connection bucket limit reached
+# TYPE tor_relay_load_global_rate_limit_reached_total counter
+tor_relay_load_global_rate_limit_reached_total{side="read"} 0
+tor_relay_load_global_rate_limit_reached_total{side="write"} 0
+# HELP tor_relay_destroy_cell_total Total number of DESTROY cell we received
+# TYPE tor_relay_destroy_cell_total counter
+tor_relay_destroy_cell_total 4
+# HELP tor_relay_intro1_total Total number of INTRO1 cells we received
+# TYPE tor_relay_intro1_total counter
+tor_relay_intro1_total{action="success"} 0
+tor_relay_intro1_total{action="circuit_dead"} 0
+tor_relay_intro1_total{action="malformed"} 0
+tor_relay_intro1_total{action="unknown_service"} 0
+tor_relay_intro1_total{action="rate_limited"} 0
+tor_relay_intro1_total{action="circuit_reused"} 0
+tor_relay_intro1_total{action="single_hop"} 0
+# HELP tor_relay_rend1_total Total number of REND1 cells we received
+# TYPE tor_relay_rend1_total counter
+tor_relay_rend1_total{action="success"} 0
+tor_relay_rend1_total{action="unsuitable_circuit"} 0
+tor_relay_rend1_total{action="malformed"} 0
+tor_relay_rend1_total{action="unknown_cookie"} 0
+tor_relay_rend1_total{action="circuit_dead"} 0
+# HELP tor_relay_est_intro_total Total number of EST_INTRO cells we received
+# TYPE tor_relay_est_intro_total counter
+tor_relay_est_intro_total{action="success"} 0
+tor_relay_est_intro_total{action="malformed"} 0
+tor_relay_est_intro_total{action="unsuitable_circuit"} 0
+tor_relay_est_intro_total{action="circuit_dead"} 0
+# HELP tor_relay_congestion_control_total Congestion control related counters
+# TYPE tor_relay_congestion_control_total counter
+tor_relay_congestion_control_total{state="starvation",action="rtt_reset"} 0
+tor_relay_congestion_control_total{state="clock_stalls",action="rtt_skipped"} 0
+tor_relay_congestion_control_total{state="flow_control",action="xoff_num_sent"} 0
+tor_relay_congestion_control_total{state="flow_control",action="xon_num_sent"} 0
+tor_relay_congestion_control_total{state="cc_limits",action="above_delta"} 0
+tor_relay_congestion_control_total{state="cc_limits",action="above_ss_cwnd_max"} 0
+tor_relay_congestion_control_total{state="cc_limits",action="below_ss_inc_floor"} 0
+tor_relay_congestion_control_total{state="cc_circuits",action="circs_created"} 14
+tor_relay_congestion_control_total{state="cc_circuits",action="circs_closed"} 0
+tor_relay_congestion_control_total{state="cc_circuits",action="circs_exited_ss"} 0
+# HELP tor_relay_circ_proto_violation_total Total number of circuit protocol violation
+# TYPE tor_relay_circ_proto_violation_total counter
+tor_relay_circ_proto_violation_total 0
+# HELP tor_hs_pow_suggested_effort Suggested effort for requests with a proof of work client puzzle
+# TYPE tor_hs_pow_suggested_effort gauge
+tor_hs_pow_suggested_effort{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 0
+# HELP tor_hs_rdv_num_total Total number of rendezvous circuits created
+# TYPE tor_hs_rdv_num_total counter
+tor_hs_rdv_num_total{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 0
+# HELP tor_hs_rend_circ_build_time The rendezvous circuit build time in milliseconds
+# TYPE tor_hs_rend_circ_build_time histogram
+tor_hs_rend_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="1000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="5000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="10000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="30000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="60000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="+Inf"} 0
+tor_hs_rend_circ_build_time_sum{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 0
+tor_hs_rend_circ_build_time_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 0
+# HELP tor_hs_intro_rejected_intro_req_count Total number of rejected introduction circuits
+# TYPE tor_hs_intro_rejected_intro_req_count counter
+tor_hs_intro_rejected_intro_req_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="bad_auth_key"} 0
+tor_hs_intro_rejected_intro_req_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="invalid_introduce2"} 0
+tor_hs_intro_rejected_intro_req_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="subcredential"} 0
+tor_hs_intro_rejected_intro_req_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="replay"} 0
+# HELP tor_hs_rdv_error_count Total number of rendezvous circuit errors
+# TYPE tor_hs_rdv_error_count counter
+tor_hs_rdv_error_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="rp_conn_failure"} 0
+tor_hs_rdv_error_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="invalid_path"} 0
+tor_hs_rdv_error_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="rendezvous1"} 0
+tor_hs_rdv_error_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="e2e_circ"} 0
+tor_hs_rdv_error_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",reason="retry"} 0
+# HELP tor_hs_intro_circ_build_time The introduction circuit build time in milliseconds
+# TYPE tor_hs_intro_circ_build_time histogram
+tor_hs_intro_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="1000.00"} 4
+tor_hs_intro_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="5000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="10000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="30000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="60000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",le="+Inf"} 6
+tor_hs_intro_circ_build_time_sum{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 5990
+tor_hs_intro_circ_build_time_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 6
+# HELP tor_hs_intro_established_count Total number of established introduction circuit
+# TYPE tor_hs_intro_established_count gauge
+tor_hs_intro_established_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 6
+# HELP tor_hs_rdv_pow_pqueue_count Number of requests waiting in the proof of work priority queue
+# TYPE tor_hs_rdv_pow_pqueue_count gauge
+tor_hs_rdv_pow_pqueue_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 0
+# HELP tor_hs_rdv_established_count Total number of established rendezvous circuits
+# TYPE tor_hs_rdv_established_count gauge
+tor_hs_rdv_established_count{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 0
+# HELP tor_hs_app_read_bytes_total Total number of bytes read from the application
+# TYPE tor_hs_app_read_bytes_total counter
+tor_hs_app_read_bytes_total{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",port="50002"} 0
+# HELP tor_hs_app_write_bytes_total Total number of bytes written to the application
+# TYPE tor_hs_app_write_bytes_total counter
+tor_hs_app_write_bytes_total{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",port="50002"} 0
+# HELP tor_hs_intro_num_total Total number of introduction received
+# TYPE tor_hs_intro_num_total counter
+tor_hs_intro_num_total{onion="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 0
+# HELP tor_hs_pow_suggested_effort Suggested effort for requests with a proof of work client puzzle
+# TYPE tor_hs_pow_suggested_effort gauge
+tor_hs_pow_suggested_effort{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 0
+# HELP tor_hs_rdv_num_total Total number of rendezvous circuits created
+# TYPE tor_hs_rdv_num_total counter
+tor_hs_rdv_num_total{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 0
+# HELP tor_hs_rend_circ_build_time The rendezvous circuit build time in milliseconds
+# TYPE tor_hs_rend_circ_build_time histogram
+tor_hs_rend_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="1000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="5000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="10000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="30000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="60000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="+Inf"} 0
+tor_hs_rend_circ_build_time_sum{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 0
+tor_hs_rend_circ_build_time_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 0
+# HELP tor_hs_intro_rejected_intro_req_count Total number of rejected introduction circuits
+# TYPE tor_hs_intro_rejected_intro_req_count counter
+tor_hs_intro_rejected_intro_req_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="bad_auth_key"} 0
+tor_hs_intro_rejected_intro_req_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="invalid_introduce2"} 0
+tor_hs_intro_rejected_intro_req_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="subcredential"} 0
+tor_hs_intro_rejected_intro_req_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="replay"} 0
+# HELP tor_hs_rdv_error_count Total number of rendezvous circuit errors
+# TYPE tor_hs_rdv_error_count counter
+tor_hs_rdv_error_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="rp_conn_failure"} 0
+tor_hs_rdv_error_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="invalid_path"} 0
+tor_hs_rdv_error_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="rendezvous1"} 0
+tor_hs_rdv_error_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="e2e_circ"} 0
+tor_hs_rdv_error_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",reason="retry"} 0
+# HELP tor_hs_intro_circ_build_time The introduction circuit build time in milliseconds
+# TYPE tor_hs_intro_circ_build_time histogram
+tor_hs_intro_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="1000.00"} 2
+tor_hs_intro_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="5000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="10000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="30000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="60000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",le="+Inf"} 6
+tor_hs_intro_circ_build_time_sum{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 6461
+tor_hs_intro_circ_build_time_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 6
+# HELP tor_hs_intro_established_count Total number of established introduction circuit
+# TYPE tor_hs_intro_established_count gauge
+tor_hs_intro_established_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 6
+# HELP tor_hs_rdv_pow_pqueue_count Number of requests waiting in the proof of work priority queue
+# TYPE tor_hs_rdv_pow_pqueue_count gauge
+tor_hs_rdv_pow_pqueue_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 0
+# HELP tor_hs_rdv_established_count Total number of established rendezvous circuits
+# TYPE tor_hs_rdv_established_count gauge
+tor_hs_rdv_established_count{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 0
+# HELP tor_hs_app_read_bytes_total Total number of bytes read from the application
+# TYPE tor_hs_app_read_bytes_total counter
+tor_hs_app_read_bytes_total{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",port="80"} 0
+# HELP tor_hs_app_write_bytes_total Total number of bytes written to the application
+# TYPE tor_hs_app_write_bytes_total counter
+tor_hs_app_write_bytes_total{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",port="80"} 0
+# HELP tor_hs_intro_num_total Total number of introduction received
+# TYPE tor_hs_intro_num_total counter
+tor_hs_intro_num_total{onion="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"} 0
+# HELP tor_hs_pow_suggested_effort Suggested effort for requests with a proof of work client puzzle
+# TYPE tor_hs_pow_suggested_effort gauge
+tor_hs_pow_suggested_effort{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 0
+# HELP tor_hs_rdv_num_total Total number of rendezvous circuits created
+# TYPE tor_hs_rdv_num_total counter
+tor_hs_rdv_num_total{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 0
+# HELP tor_hs_rend_circ_build_time The rendezvous circuit build time in milliseconds
+# TYPE tor_hs_rend_circ_build_time histogram
+tor_hs_rend_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="1000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="5000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="10000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="30000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="60000.00"} 0
+tor_hs_rend_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="+Inf"} 0
+tor_hs_rend_circ_build_time_sum{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 0
+tor_hs_rend_circ_build_time_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 0
+# HELP tor_hs_intro_rejected_intro_req_count Total number of rejected introduction circuits
+# TYPE tor_hs_intro_rejected_intro_req_count counter
+tor_hs_intro_rejected_intro_req_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="bad_auth_key"} 0
+tor_hs_intro_rejected_intro_req_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="invalid_introduce2"} 0
+tor_hs_intro_rejected_intro_req_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="subcredential"} 0
+tor_hs_intro_rejected_intro_req_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="replay"} 0
+# HELP tor_hs_rdv_error_count Total number of rendezvous circuit errors
+# TYPE tor_hs_rdv_error_count counter
+tor_hs_rdv_error_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="rp_conn_failure"} 0
+tor_hs_rdv_error_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="invalid_path"} 0
+tor_hs_rdv_error_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="rendezvous1"} 0
+tor_hs_rdv_error_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="e2e_circ"} 0
+tor_hs_rdv_error_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",reason="retry"} 0
+# HELP tor_hs_intro_circ_build_time The introduction circuit build time in milliseconds
+# TYPE tor_hs_intro_circ_build_time histogram
+tor_hs_intro_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="1000.00"} 5
+tor_hs_intro_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="5000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="10000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="30000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="60000.00"} 6
+tor_hs_intro_circ_build_time_bucket{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",le="+Inf"} 6
+tor_hs_intro_circ_build_time_sum{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 5366
+tor_hs_intro_circ_build_time_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 6
+# HELP tor_hs_intro_established_count Total number of established introduction circuit
+# TYPE tor_hs_intro_established_count gauge
+tor_hs_intro_established_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 6
+# HELP tor_hs_rdv_pow_pqueue_count Number of requests waiting in the proof of work priority queue
+# TYPE tor_hs_rdv_pow_pqueue_count gauge
+tor_hs_rdv_pow_pqueue_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 0
+# HELP tor_hs_rdv_established_count Total number of established rendezvous circuits
+# TYPE tor_hs_rdv_established_count gauge
+tor_hs_rdv_established_count{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 0
+# HELP tor_hs_app_read_bytes_total Total number of bytes read from the application
+# TYPE tor_hs_app_read_bytes_total counter
+tor_hs_app_read_bytes_total{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",port="8333"} 0
+# HELP tor_hs_app_write_bytes_total Total number of bytes written to the application
+# TYPE tor_hs_app_write_bytes_total counter
+tor_hs_app_write_bytes_total{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",port="8333"} 0
+# HELP tor_hs_intro_num_total Total number of introduction received
+# TYPE tor_hs_intro_num_total counter
+tor_hs_intro_num_total{onion="cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"} 0

@@ -1,0 +1,855 @@
+zabbix_export:
+  version: '7.4'
+  template_groups:
+  - uuid: 2fdcbeab1c384acf97c831294e7661bb
+    name: Templates/Applications
+  templates:
+  - uuid: 821ce4590487471a9ac3fcebbb5159e3
+    template: Template App Tor by Agent2 active
+    name: Template App Tor by Agent2 active
+    description: Local C Tor monitoring via Agent2 active checks and native Prometheus
+      preprocessing. Developed against Tor 0.4.9.11. Metrics do not prove end-to-end
+      SOCKS or onion reachability. Relay flag alert is opt-in.
+    groups:
+    - name: Templates/Applications
+    items:
+    - uuid: 223f4b08d9da4179a888fe4a360e93eb
+      name: 'Tor: Raw Prometheus metrics'
+      type: ZABBIX_ACTIVE
+      key: tor.prometheus[{$TOR.METRICS.PORT}]
+      delay: 1m
+      history: '0'
+      trends: '0'
+      value_type: TEXT
+      description: Fetched locally. Raw payload is not retained. Requires tor_prometheus.py
+        and tor.conf.
+    - uuid: f214a9f9459f47e0a2a067095783a28b
+      name: 'Tor: Metrics available'
+      type: DEPENDENT
+      key: tor.metrics.ok
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - zbx_tor_metrics_ok
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+      triggers:
+      - uuid: 2a0e3006694f479ca69635ae6dc626e0
+        name: 'Tor: Metrics unavailable for 3 minutes'
+        expression: max(/Template App Tor by Agent2 active/tor.metrics.ok,3m)=0
+        priority: HIGH
+      - uuid: 8135c15cc3954b219afcb09378b58efc
+        name: 'Tor: No monitoring data for 5 minutes'
+        expression: nodata(/Template App Tor by Agent2 active/tor.metrics.ok,5m)=1
+        priority: HIGH
+    - uuid: cf3766ec804949c5ad22b01a3341373d
+      name: 'Tor: Metrics HTTP status'
+      type: DEPENDENT
+      key: tor.metrics.http_status
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - zbx_tor_http_status
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 5cf7719540ad4b2d856987241c32b9bd
+      name: 'Tor: Metrics scrape time'
+      type: DEPENDENT
+      key: tor.metrics.duration
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - zbx_tor_scrape_duration_ms
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+      units: ms
+    - uuid: 8ddeec17281244149f5957144ae0ad42
+      name: 'Tor: Open sockets'
+      type: DEPENDENT
+      key: tor.sockets.open
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_load_socket_total{state="opened"}
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 67100927b114426aa9b8bd6d9f616bd6
+      name: 'Tor: Socket limit'
+      type: DEPENDENT
+      key: tor.sockets.limit
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - zbx_tor_socket_limit
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 5e4e6e11690b42f8b83f5267bba2cebe
+      name: 'Tor: Open circuits'
+      type: DEPENDENT
+      key: tor.circuits.open
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_circuits_total
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+    - uuid: fee3abbe4f564e5aade3c4e3f0a3e10a
+      name: 'Tor: OR connections'
+      type: DEPENDENT
+      key: tor.connections.or
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_connections{type="OR"}
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+    - uuid: f16f623007574ac7ab86932e42e93e5a
+      name: 'Tor: SOCKS connections'
+      type: DEPENDENT
+      key: tor.connections.socks
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_connections{type="Socks"}
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+    - uuid: e99977b0db5048a8a575178fa60f043a
+      name: 'Tor: Relay Running flag'
+      type: DEPENDENT
+      key: tor.relay.running
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_flag{type="Running"}
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+      triggers:
+      - uuid: b8f7c0979fd74dfebec93527a9bb1865
+        name: 'Tor: Relay absent from consensus Running flag'
+        expression: '{$TOR.RELAY.REQUIRED}=1 and max(/Template App Tor by Agent2 active/tor.relay.running,15m)=0
+          and last(/Template App Tor by Agent2 active/tor.metrics.ok)=1 and nodata(/Template
+          App Tor by Agent2 active/tor.metrics.ok,3m)=0'
+        priority: WARNING
+    - uuid: c9c9c41c38824c35959650c2f2c5626f
+      name: 'Tor: Traffic read per second'
+      type: DEPENDENT
+      key: tor.traffic.read.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_traffic_bytes{direction="read"}
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+      units: Bps
+    - uuid: b024563de4b34b36ba513ba42abf30b3
+      name: 'Tor: Traffic written per second'
+      type: DEPENDENT
+      key: tor.traffic.written.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_traffic_bytes{direction="written"}
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+      units: Bps
+    - uuid: fcb88d0b2e2445319cc51ce3e4d663c0
+      name: 'Tor: Internal bugs per second'
+      type: DEPENDENT
+      key: tor.bugs.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_bug_reached_count
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+      triggers:
+      - uuid: 3dd48de5ae2048048b63c2a82a8e5fba
+        name: 'Tor: Internal bugs increased recently'
+        expression: max(/Template App Tor by Agent2 active/tor.bugs.rate,10m)>0 and
+          last(/Template App Tor by Agent2 active/tor.metrics.ok)=1 and nodata(/Template
+          App Tor by Agent2 active/tor.metrics.ok,3m)=0
+        priority: WARNING
+    - uuid: 35d6a7ff0f7b45158a2394808fe3b03c
+      name: 'Tor: OOM bytes freed per second'
+      type: DEPENDENT
+      key: tor.oom.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_load_oom_bytes_total
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+      units: Bps
+      triggers:
+      - uuid: b49c73199b1a46f595856b575c2f5b6c
+        name: 'Tor: OOM bytes freed increased recently'
+        expression: max(/Template App Tor by Agent2 active/tor.oom.rate,10m)>0 and
+          last(/Template App Tor by Agent2 active/tor.metrics.ok)=1 and nodata(/Template
+          App Tor by Agent2 active/tor.metrics.ok,3m)=0
+        priority: WARNING
+    - uuid: 4082ae799a5043179f900edb4990429a
+      name: 'Tor: TCP port exhaustion per second'
+      type: DEPENDENT
+      key: tor.tcp.exhaustion.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_load_tcp_exhaustion_total
+        - value
+        - ''
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+      triggers:
+      - uuid: 5e8a6341cdff4431b202181bca4d1020
+        name: 'Tor: TCP port exhaustion increased recently'
+        expression: max(/Template App Tor by Agent2 active/tor.tcp.exhaustion.rate,10m)>0
+          and last(/Template App Tor by Agent2 active/tor.metrics.ok)=1 and nodata(/Template
+          App Tor by Agent2 active/tor.metrics.ok,3m)=0
+        priority: WARNING
+    - uuid: 2d24eb4aedc74bf08736cac1b9f9e4a0
+      name: 'Tor: DNS queries per second'
+      type: DEPENDENT
+      key: tor.dns.queries.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_exit_dns_query_total
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+    - uuid: fe260f9ccc2c4d9388c5c534c4e81871
+      name: 'Tor: DNS errors per second'
+      type: DEPENDENT
+      key: tor.dns.errors.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_exit_dns_error_total
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 93ffc695825f43aebc4871a764603170
+      name: 'Tor: DoS defenses per second'
+      type: DEPENDENT
+      key: tor.dos.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_dos_total
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 935e6f2c531444f8bf7c95c96e5fa255
+      name: 'Tor: Onionskins dropped per second'
+      type: DEPENDENT
+      key: tor.onionskins.dropped.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_load_onionskins_total{action="dropped"}
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+    - uuid: d2cab9c51b144f1b9d2673cfd5b81297
+      name: 'Tor: Read rate limit reached per second'
+      type: DEPENDENT
+      key: tor.limit.read.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_load_global_rate_limit_reached_total{side="read"}
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 5b4b78e96eb34c14adf64b1aa26e2973
+      name: 'Tor: Write rate limit reached per second'
+      type: DEPENDENT
+      key: tor.limit.write.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_load_global_rate_limit_reached_total{side="write"}
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 6eff1ec7bfbc4536a29bec3334932c96
+      name: 'Tor: Connections rejected per second'
+      type: DEPENDENT
+      key: tor.connections.rejected.rate
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: PROMETHEUS_PATTERN
+        parameters:
+        - tor_relay_connections_total{state="rejected"}
+        - function
+        - sum
+        error_handler: DISCARD_VALUE
+      - type: CHANGE_PER_SECOND
+      tags:
+      - tag: component
+        value: tor
+    - uuid: 80d318ee03c94cfe9ac74ce9a349fce2
+      name: 'Tor: Socket utilization'
+      type: DEPENDENT
+      key: tor.sockets.utilization
+      history: 7d
+      trends: 365d
+      value_type: FLOAT
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - 'var opened = value.match(/^tor_relay_load_socket_total\{state="opened"\}\s+([0-9.]+)/m);
+
+          var limit = value.match(/^zbx_tor_socket_limit\s+([0-9.]+)/m);
+
+          if (!opened || !limit || Number(limit[1]) <= 0) throw "Socket metrics missing";
+
+          return 100 * Number(opened[1]) / Number(limit[1]);'
+        error_handler: DISCARD_VALUE
+      tags:
+      - tag: component
+        value: tor
+      units: '%'
+      triggers:
+      - uuid: b2138e70d6514d87988d121add873358
+        name: 'Tor: Socket utilization high'
+        expression: min(/Template App Tor by Agent2 active/tor.sockets.utilization,5m)>{$TOR.SOCKETS.WARN.PCT}
+          and last(/Template App Tor by Agent2 active/tor.metrics.ok)=1 and nodata(/Template
+          App Tor by Agent2 active/tor.metrics.ok,3m)=0
+        priority: WARNING
+    discovery_rules:
+    - uuid: ae2199425d414cd98d4acc6e35494998
+      name: 'Tor: Onion services discovery'
+      type: DEPENDENT
+      key: tor.onion.discovery
+      master_item:
+        key: tor.prometheus[{$TOR.METRICS.PORT}]
+      lifetime: 7d
+      description: Discovers onion labels from introduction gauges. Failed scrapes
+        are discarded rather than treated as an empty list.
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - if (!/^zbx_tor_metrics_ok 1$/m.test(value)) throw "Metrics unavailable";
+          return value;
+        error_handler: DISCARD_VALUE
+      - type: PROMETHEUS_TO_JSON
+        parameters:
+        - tor_hs_intro_established_count
+        error_handler: DISCARD_VALUE
+      lld_macro_paths:
+      - lld_macro: '{#ONION}'
+        path: $.labels.onion
+      filter:
+        evaltype: AND
+        conditions:
+        - macro: '{#ONION}'
+          value: ^[a-z2-7]{56}$
+          operator: MATCHES_REGEX
+          formulaid: A
+      item_prototypes:
+      - uuid: 61032c67e8ee4d67912cba85b4c90f9e
+        name: 'Tor onion [{#ONION}]: Introduction circuits'
+        type: DEPENDENT
+        key: tor.onion.intro.established[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_intro_established_count{onion="{#ONION}"}
+          - value
+          - ''
+          error_handler: DISCARD_VALUE
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+        trigger_prototypes:
+        - uuid: 39489264d6d64c909a7aaad81eb59f80
+          name: 'Tor onion [{#ONION}]: No introduction circuits for 5 minutes'
+          expression: max(/Template App Tor by Agent2 active/tor.onion.intro.established[{#ONION}],5m)<{$TOR.ONION.INTRO.MIN}
+            and count(/Template App Tor by Agent2 active/tor.onion.intro.established[{#ONION}],5m)>=5
+            and last(/Template App Tor by Agent2 active/tor.metrics.ok)=1 and nodata(/Template
+            App Tor by Agent2 active/tor.metrics.ok,3m)=0
+          priority: HIGH
+        - uuid: 723c48ed4ed7490e88748f6fbd3f6bbd
+          name: 'Tor onion [{#ONION}]: Introduction metrics missing for 10 minutes'
+          expression: nodata(/Template App Tor by Agent2 active/tor.onion.intro.established[{#ONION}],10m)=1
+            and last(/Template App Tor by Agent2 active/tor.metrics.ok)=1 and nodata(/Template
+            App Tor by Agent2 active/tor.metrics.ok,3m)=0
+          priority: WARNING
+      - uuid: a01ce8fa0a0c490c9e2dca80ff23c849
+        name: 'Tor onion [{#ONION}]: Rendezvous circuits'
+        type: DEPENDENT
+        key: tor.onion.rdv.established[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_rdv_established_count{onion="{#ONION}"}
+          - value
+          - ''
+          error_handler: DISCARD_VALUE
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+      - uuid: bf0eaeb2e3844f67b3e7be0c5c1695a5
+        name: 'Tor onion [{#ONION}]: Introductions per second'
+        type: DEPENDENT
+        key: tor.onion.intro.rate[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_intro_num_total{onion="{#ONION}"}
+          - function
+          - sum
+          error_handler: DISCARD_VALUE
+        - type: CHANGE_PER_SECOND
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+      - uuid: 8232fcc20a1b4220a9c447c1595386c2
+        name: 'Tor onion [{#ONION}]: Rendezvous created per second'
+        type: DEPENDENT
+        key: tor.onion.rdv.rate[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_rdv_num_total{onion="{#ONION}"}
+          - function
+          - sum
+          error_handler: DISCARD_VALUE
+        - type: CHANGE_PER_SECOND
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+      - uuid: 3c419fca931a48af8948a6a8b8f9f1af
+        name: 'Tor onion [{#ONION}]: Introduction errors per second'
+        type: DEPENDENT
+        key: tor.onion.intro.errors.rate[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_intro_rejected_intro_req_count{onion="{#ONION}"}
+          - function
+          - sum
+          error_handler: DISCARD_VALUE
+        - type: CHANGE_PER_SECOND
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+      - uuid: a77e63f5e3804e4392e303b046935ac7
+        name: 'Tor onion [{#ONION}]: Rendezvous errors per second'
+        type: DEPENDENT
+        key: tor.onion.rdv.errors.rate[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_rdv_error_count{onion="{#ONION}"}
+          - function
+          - sum
+          error_handler: DISCARD_VALUE
+        - type: CHANGE_PER_SECOND
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+      - uuid: 6ad53423f4bb4be19467b83fda48bc3f
+        name: 'Tor onion [{#ONION}]: Application read per second'
+        type: DEPENDENT
+        key: tor.onion.app.read.rate[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_app_read_bytes_total{onion="{#ONION}"}
+          - function
+          - sum
+          error_handler: DISCARD_VALUE
+        - type: CHANGE_PER_SECOND
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+        units: Bps
+      - uuid: 52891fed903b4b08802050114f2be438
+        name: 'Tor onion [{#ONION}]: Application write per second'
+        type: DEPENDENT
+        key: tor.onion.app.write.rate[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_app_write_bytes_total{onion="{#ONION}"}
+          - function
+          - sum
+          error_handler: DISCARD_VALUE
+        - type: CHANGE_PER_SECOND
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+        units: Bps
+      - uuid: 546fdca2e25b4fb9adf6bbd8709754d7
+        name: 'Tor onion [{#ONION}]: PoW queue'
+        type: DEPENDENT
+        key: tor.onion.pow.queue[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_rdv_pow_pqueue_count{onion="{#ONION}"}
+          - value
+          - ''
+          error_handler: DISCARD_VALUE
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+      - uuid: c99de645e96c4aadac1e323cc90015e9
+        name: 'Tor onion [{#ONION}]: PoW effort'
+        type: DEPENDENT
+        key: tor.onion.pow.effort[{#ONION}]
+        history: 7d
+        trends: 365d
+        value_type: FLOAT
+        master_item:
+          key: tor.prometheus[{$TOR.METRICS.PORT}]
+        preprocessing:
+        - type: PROMETHEUS_PATTERN
+          parameters:
+          - tor_hs_pow_suggested_effort{onion="{#ONION}"}
+          - value
+          - ''
+          error_handler: DISCARD_VALUE
+        tags:
+        - tag: component
+          value: onion
+        - tag: onion
+          value: '{#ONION}'
+      graph_prototypes:
+      - uuid: d64f0dd4ddfb4d489e23aef3ca0448e4
+        name: 'Tor onion [{#ONION}]: Traffic'
+        graph_items:
+        - sortorder: '0'
+          color: 199C0D
+          item:
+            host: Template App Tor by Agent2 active
+            key: tor.onion.app.read.rate[{#ONION}]
+        - sortorder: '1'
+          color: F63100
+          item:
+            host: Template App Tor by Agent2 active
+            key: tor.onion.app.write.rate[{#ONION}]
+      - uuid: cbed2fbe976a4cf4bc0ed855547c8840
+        name: 'Tor onion [{#ONION}]: Circuits'
+        graph_items:
+        - sortorder: '0'
+          color: 199C0D
+          item:
+            host: Template App Tor by Agent2 active
+            key: tor.onion.intro.established[{#ONION}]
+        - sortorder: '1'
+          color: F63100
+          item:
+            host: Template App Tor by Agent2 active
+            key: tor.onion.rdv.established[{#ONION}]
+    macros:
+    - macro: '{$TOR.METRICS.PORT}'
+      value: '9035'
+      description: Loopback MetricsPort
+    - macro: '{$TOR.RELAY.REQUIRED}'
+      value: '0'
+      description: Set 1 only for public relays expected to have Running flag.
+    - macro: '{$TOR.SOCKETS.WARN.PCT}'
+      value: '80'
+    - macro: '{$TOR.ONION.INTRO.MIN}'
+      value: '1'
+      description: Minimum introduction circuits. Zero disables low-count alert.
+    tags:
+    - tag: class
+      value: software
+    - tag: target
+      value: tor
+  graphs:
+  - uuid: db052bf919564efbaa004db966adfae2
+    name: 'Tor: Traffic'
+    graph_items:
+    - sortorder: '0'
+      color: 199C0D
+      item:
+        host: Template App Tor by Agent2 active
+        key: tor.traffic.read.rate
+    - sortorder: '1'
+      color: F63100
+      item:
+        host: Template App Tor by Agent2 active
+        key: tor.traffic.written.rate
+  - uuid: a4c9757597a948829b6de17397892e73
+    name: 'Tor: Connections'
+    graph_items:
+    - sortorder: '0'
+      color: 199C0D
+      item:
+        host: Template App Tor by Agent2 active
+        key: tor.connections.or
+    - sortorder: '1'
+      color: F63100
+      item:
+        host: Template App Tor by Agent2 active
+        key: tor.connections.socks
+  - uuid: 5f2512d8e1d1469fb2fe8affc784506d
+    name: 'Tor: Sockets'
+    graph_items:
+    - sortorder: '0'
+      color: 199C0D
+      item:
+        host: Template App Tor by Agent2 active
+        key: tor.sockets.open
+    - sortorder: '1'
+      color: F63100
+      item:
+        host: Template App Tor by Agent2 active
+        key: tor.sockets.limit
